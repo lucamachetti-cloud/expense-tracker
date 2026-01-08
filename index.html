@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Expense Tracker</h1>
+            <div class="summary">
+                <div class="summary-item">
+                    <span class="label">Total Expenses</span>
+                    <span class="value" id="totalExpenses">$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Monthly Budget</span>
+                    <span class="value" id="budgetAmount">$0.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Remaining</span>
+                    <span class="value" id="remainingBudget">$0.00</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <aside class="sidebar">
+                <section class="card">
+                    <h2>Add Expense</h2>
+                    <form id="expenseForm">
+                        <input type="hidden" id="expenseId">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount ($)</label>
+                            <input type="number" id="amount" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" required>
+                                <option value="">Select category</option>
+                                <option value="food">Food & Dining</option>
+                                <option value="transport">Transportation</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="bills">Bills & Utilities</option>
+                                <option value="health">Healthcare</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Add Expense</button>
+                            <button type="button" class="btn btn-secondary" id="cancelBtn" style="display: none;">Cancel</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <h2>Budget Settings</h2>
+                    <form id="budgetForm">
+                        <div class="form-group">
+                            <label for="budgetInput">Monthly Budget ($)</label>
+                            <input type="number" id="budgetInput" step="0.01" min="0">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Set Budget</button>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <h2>Category Budgets</h2>
+                    <form id="categoryBudgetForm">
+                        <div class="category-budget-list" id="categoryBudgetList">
+                            <div class="category-budget-item">
+                                <label>Food & Dining</label>
+                                <input type="number" data-category="food" class="category-budget-input" step="0.01" min="0" placeholder="$0.00">
+                            </div>
+                            <div class="category-budget-item">
+                                <label>Transportation</label>
+                                <input type="number" data-category="transport" class="category-budget-input" step="0.01" min="0" placeholder="$0.00">
+                            </div>
+                            <div class="category-budget-item">
+                                <label>Shopping</label>
+                                <input type="number" data-category="shopping" class="category-budget-input" step="0.01" min="0" placeholder="$0.00">
+                            </div>
+                            <div class="category-budget-item">
+                                <label>Entertainment</label>
+                                <input type="number" data-category="entertainment" class="category-budget-input" step="0.01" min="0" placeholder="$0.00">
+                            </div>
+                            <div class="category-budget-item">
+                                <label>Bills & Utilities</label>
+                                <input type="number" data-category="bills" class="category-budget-input" step="0.01" min="0" placeholder="$0.00">
+                            </div>
+                            <div class="category-budget-item">
+                                <label>Healthcare</label>
+                                <input type="number" data-category="health" class="category-budget-input" step="0.01" min="0" placeholder="$0.00">
+                            </div>
+                            <div class="category-budget-item">
+                                <label>Other</label>
+                                <input type="number" data-category="other" class="category-budget-input" step="0.01" min="0" placeholder="$0.00">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Category Budgets</button>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <h2>Export Data</h2>
+                    <div class="export-buttons">
+                        <button class="btn btn-secondary" id="exportCSV">Export as CSV</button>
+                        <button class="btn btn-secondary" id="exportJSON">Export as JSON</button>
+                    </div>
+                </section>
+            </aside>
+
+            <main class="content">
+                <section class="card">
+                    <h2>Category Budget Status</h2>
+                    <div class="category-progress-list" id="categoryProgressList">
+                        <div class="empty-state">
+                            <p>Set category budgets to track spending by category.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <div class="filter-bar">
+                        <h2>Expenses</h2>
+                        <div class="filters">
+                            <input type="date" id="filterStartDate" placeholder="Start Date">
+                            <input type="date" id="filterEndDate" placeholder="End Date">
+                            <select id="filterCategory">
+                                <option value="">All Categories</option>
+                                <option value="food">Food & Dining</option>
+                                <option value="transport">Transportation</option>
+                                <option value="shopping">Shopping</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="bills">Bills & Utilities</option>
+                                <option value="health">Healthcare</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <button class="btn btn-secondary" id="resetFilters">Reset</button>
+                        </div>
+                    </div>
+                    <div class="expense-list" id="expenseList">
+                        <div class="empty-state">
+                            <p>No expenses yet. Add your first expense to get started!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <h2>Spending by Category</h2>
+                    <canvas id="categoryChart"></canvas>
+                </section>
+
+                <section class="card">
+                    <h2>Spending Trend</h2>
+                    <canvas id="trendChart"></canvas>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div id="alertModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Budget Alert</h2>
+            <p id="alertMessage"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
