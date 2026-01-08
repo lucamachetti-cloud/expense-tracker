@@ -145,6 +145,19 @@ header h1 {
     gap: 10px;
 }
 
+.import-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.import-hint {
+    font-size: 0.85em;
+    color: #777;
+    margin: 0;
+    text-align: center;
+}
+
 .filter-bar {
     margin-bottom: 20px;
 }
@@ -312,6 +325,42 @@ canvas {
 
 .close:hover {
     color: #000;
+}
+
+.modal-large {
+    max-width: 700px;
+}
+
+.csv-preview {
+    background: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.csv-mapping {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.column-select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
 }
 
 .budget-warning {
